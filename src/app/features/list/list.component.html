@@ -1,10 +1,10 @@
-<div class="p-6 flex flex-col items-center max-w-7xl mx-auto bg-gradient-to-r from-gray-200 via-white to-gray-200 h-screen">
-  <h1 class="text-5xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+<div class="p-6 flex flex-col items-center max-w-7xl mx-auto bg-gradient-to-r from-gray-200 via-white to-gray-200 min-h-screen py-10">
+  <h1 class="text-4xl sm:text-5xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-center">
     🌍 Lista de Países
   </h1>
 
   <!-- Input de búsqueda -->
-   <div>
+  <div class="w-full flex justify-center px-4">
     <input
       type="text"
       [(ngModel)]="searchTerm"
@@ -12,16 +12,28 @@
       placeholder="Buscar país..."
       class="w-full sm:w-96 px-4 py-2 mb-6 rounded-full border-purple-500 border-2 focus:ring-2 focus:ring-indigo-400 focus:outline-none transition"
     />
-   </div>
-  
+  </div>
+
+  <!-- Filtro por letra -->
+  <div class="flex flex-wrap justify-center gap-2 mb-6 px-2">
+    <button
+      *ngFor="let letter of alphabet"
+      (click)="onLetterSelect(letter)"
+      [ngClass]="{
+        'bg-indigo-600 text-white': currentLetter === letter,
+        'bg-gray-200 text-gray-800': currentLetter !== letter
+      }"
+      class="px-3 py-1 rounded-md font-medium transition hover:bg-indigo-400 hover:text-white"
+    >
+      {{ letter }}
+    </button>
+  </div>
 
   <!-- Spinner de carga -->
   <div *ngIf="loading" class="flex flex-col items-center mt-10 text-gray-500 animate-pulse">
     <svg class="w-12 h-12 text-indigo-500 animate-spin" fill="none" viewBox="0 0 24 24">
       <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-      <path class="opacity-75" fill="currentColor"
-        d="M4 12a8 8 0 018-8v8z">
-      </path>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
     </svg>
     <p class="mt-4 text-lg">Cargando países...</p>
   </div>
@@ -32,9 +44,9 @@
     *ngIf="!loading"
   >
     <div
-      *ngFor="let country of filteredCountries"
+      *ngFor="let country of paginatedCountries"
       (click)="goToDetail(country.cca3)"
-      class="group backdrop-blur bg-white/30 dark:bg-white/10 border border-white/20 hover:border-indigo-400 transition duration-300 shadow-xl rounded-xl overflow-hidden cursor-pointer hover:scale-[1.03] hover:shadow-2xl transform "
+      class="group backdrop-blur bg-white/30 dark:bg-white/10 border border-white/20 hover:border-indigo-400 transition duration-300 shadow-xl rounded-xl overflow-hidden cursor-pointer hover:scale-[1.03] hover:shadow-2xl transform"
     >
       <img
         [src]="country.flags?.svg"
@@ -50,5 +62,32 @@
         </p>
       </div>
     </div>
+  </div>
+
+  <!-- Paginación con íconos Lucide -->
+  <div *ngIf="!loading && totalPages > 1" class="mt-8 flex items-center gap-4 mb-10">
+    <button
+      (click)="goToPage(currentPage - 1)"
+      [disabled]="currentPage === 1"
+      class="p-2 rounded-full bg-gray-200 text-gray-700 hover:bg-indigo-200 transition disabled:opacity-50"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 18l-6-6 6-6" />
+      </svg>
+    </button>
+
+    <span class="text-lg font-bold text-gray-700">
+      Página {{ currentPage }} de {{ totalPages }}
+    </span>
+
+    <button
+      (click)="goToPage(currentPage + 1)"
+      [disabled]="currentPage === totalPages"
+      class="p-2 rounded-full bg-gray-200 text-gray-700 hover:bg-indigo-200 transition disabled:opacity-50"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 6l6 6-6 6" />
+      </svg>
+    </button>
   </div>
 </div>
