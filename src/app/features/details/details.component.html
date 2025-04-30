@@ -1,14 +1,48 @@
-<div class="p-4" *ngIf="!loading && country">
-  <h2 class="text-2xl font-bold mb-4">{{ country.name.common }}</h2>
-  <img [src]="country.flags.svg" alt="Bandera" class="w-64 mb-4" />
+<div
+  class="relative max-w-2xl w-full bg-white shadow-2xl rounded-2xl overflow-hidden border border-gray-300 transition transform"
+>
+  <!-- Botón cerrar -->
+  <button
+    (click)="onClose()"
+    class="absolute top-4 right-4 z-10 text-white text-xl font-bold rounded-full w-9 h-9 flex items-center justify-center transition cursor-pointer"
+    aria-label="Cerrar"
+  >
+    ✖
+  </button>
 
-  <p><strong>Capital:</strong> {{ country.capital?.[0] }}</p>
-  <p><strong>Región:</strong> {{ country.region }}</p>
-  <p><strong>Subregión:</strong> {{ country.subregion }}</p>
-  <p><strong>Población:</strong> {{ country.population | number }}</p>
-  <p><strong>Área:</strong> {{ country.area | number }} km²</p>
-</div>
+  <!-- Bandera -->
+  <div class="relative">
+    <img
+      [src]="country.flags?.svg"
+      alt="{{ country.name.common }}"
+      class="w-full h-60 object-cover shadow-sm"
+    />
+    <div
+      class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/50 to-transparent p-4 text-white "
+    >
+      <h2 class="text-3xl font-bold">{{ country.name.common }}</h2>
+      <p class="text-sm">{{ country.name.official }}</p>
+    </div>
+  </div>
 
-<div *ngIf="loading" class="text-center text-gray-500">
-  Cargando detalles...
+  <!-- Detalles -->
+  <div class="p-6 space-y-4 text-gray-800">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <p><span class="font-semibold">🌍 Continente:</span> {{ country.region }}</p>
+      <p><span class="font-semibold">🗺️ Subregión:</span> {{ country.subregion }}</p>
+      <p><span class="font-semibold">🏙️ Capital:</span> {{ country.capital?.[0] || 'No disponible' }}</p>
+      <p><span class="font-semibold">🧑‍🤝‍🧑 Población:</span> {{ country.population | number }}</p>
+      <p><span class="font-semibold">🌐 Área:</span> {{ country.area | number }} km²</p>
+      <p><span class="font-semibold">🗣️ Idiomas:</span>
+        <span *ngIf="languages.length; else noLangs">
+          {{ languages.join(', ') }}
+        </span>
+        <ng-template #noLangs>No disponible</ng-template>
+      </p>
+    </div>
+
+    <p class="text-sm text-gray-600 mt-6">
+      Código de país: <span class="font-mono">{{ country.cca3 }}</span>
+    </p>
+  </div>
 </div>

@@ -3,12 +3,13 @@ import { CountryService } from '../../core/service/country.service';
 import { Router } from '@angular/router';
 import { NgIf, NgFor, NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DetailsComponent } from '../details/details.component';
 
 @Component({
   selector: 'app-list',
   standalone: true,
   templateUrl: './list.component.html',
-  imports: [NgIf, NgFor, FormsModule, NgClass],
+  imports: [NgIf, NgFor, FormsModule, NgClass, DetailsComponent],
 })
 export class ListComponent implements OnInit {
   countries: any[] = [];
@@ -20,6 +21,8 @@ export class ListComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 9;
   totalPages = 1;
+  selectedCountry: any = null;
+  isModalVisible = false;
 
   alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
@@ -81,5 +84,19 @@ export class ListComponent implements OnInit {
 
   goToDetail(code: string) {
     this.router.navigate(['/detail', code]);
+  }
+
+  openDetails(country: any) {
+    this.selectedCountry = country;
+    setTimeout(() => {
+      this.isModalVisible = true;
+    },10)
+  }
+
+  closeModal(){
+    this.selectedCountry = null;
+    setTimeout(() => {
+      this.isModalVisible = false;
+    },10)
   }
 }
