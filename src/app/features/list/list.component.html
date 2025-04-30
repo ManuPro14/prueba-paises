@@ -45,7 +45,7 @@
   >
     <div
       *ngFor="let country of paginatedCountries"
-      (click)="goToDetail(country.cca3)"
+      (click)="openDetails(country)"
       class="group backdrop-blur bg-white/30 dark:bg-white/10 border border-white/20 hover:border-indigo-400 transition duration-300 shadow-xl rounded-xl overflow-hidden cursor-pointer hover:scale-[1.03] hover:shadow-2xl transform"
     >
       <img
@@ -89,5 +89,24 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 6l6 6-6 6" />
       </svg>
     </button>
+  </div>
+
+  <!-- Modal reutilizando DetailsComponent -->
+  <div
+    *ngIf="selectedCountry"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4"
+  >
+    <div
+      class="transition-all duration-300 transform"
+      [ngClass]="{
+        'opacity-100 scale-100': isModalVisible,
+        'opacity-0 scale-90': !isModalVisible
+      }"
+    >
+      <app-details
+        [country]="selectedCountry"
+        (close)="closeModal()"
+      ></app-details>
+    </div>
   </div>
 </div>

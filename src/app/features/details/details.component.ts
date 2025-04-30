@@ -1,36 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { CountryService } from '../../core/service/country.service';
-import { NgIf, DecimalPipe } from '@angular/common'; 
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { NgIf, NgFor } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [NgIf, DecimalPipe],
   templateUrl: './details.component.html',
+  imports: [NgIf, DecimalPipe],
 })
-export class DetailsComponent implements OnInit {
-  country: any = null;
-  loading = true;
+export class DetailsComponent {
+  @Input() country: any;
+  @Output() close = new EventEmitter<void>();
 
-  constructor(
-    private route: ActivatedRoute,
-    private service: CountryService
-  ) {}
+  get languages(): string[] {
+    return this.country?.languages
+      ? Object.values(this.country.languages)
+      : [];
+  }
 
-  ngOnInit(): void {
-    const code = this.route.snapshot.paramMap.get('code');
-    if (code) {
-      this.service.getByCode(code).subscribe({
-        next: (data) => {
-          this.country = data[0];
-          this.loading = false;
-        },
-        error: () => {
-          this.loading = false;
-          alert('No se pudo cargar el país');
-        },
-      });
-    }
+  onClose() {
+    this.close.emit();
   }
 }
