@@ -24,8 +24,6 @@ cd prueba-paises
 npm install
 
 # Corre el servidor de desarrollo
-npm start
-# o con Angular CLI directamente:
 ng serve
 
 Ejecutar pruebas
@@ -43,7 +41,7 @@ Una SPA (Single Page Application) que permite:
 	•	Visualizar una lista de países del mundo.
 	•	Buscar países por nombre.
 	•	Filtrar por letra inicial.
-	•	Paginar resultados de 10 en 10.
+	•	Paginar resultados de 9 en 9.
 	•	Ver detalles de un país en un modal animado.
 	•	Utilizar animaciones y transiciones suaves con Tailwind y lógica de estado.
 
@@ -61,7 +59,7 @@ src/
 │   └── app.component.ts     # Entry point
 
 	•	standalone components: facilita reutilización y testing.
-	•	TailwindCSS: para diseño moderno y responsivo sin dependencia de componentes pesados.
+	•	TailwindCSS: para diseño moderno, escritura de estilos en línea y responsivo sin dependencia de componentes pesados.
 	•	RxJS: para consumir APIs.
 	•	Karma + Jasmine: para testing unitario.
 
