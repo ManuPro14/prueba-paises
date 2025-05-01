@@ -48,7 +48,7 @@ Una SPA (Single Page Application) que permite:
 🧱 Arquitectura
 
 El proyecto usa una estructura por funcionalidades (feature-based):
-
+```bash
 src/
 ├── app/
 │   ├── core/                # Servicios compartidos
@@ -57,7 +57,7 @@ src/
 │   │   ├── list/            # Listado de países
 │   │   └── details/         # Modal de detalles de un país
 │   └── app.component.ts     # Entry point
-
+```
 	•	standalone components: facilita reutilización y testing.
 	•	TailwindCSS: para diseño moderno, escritura de estilos en línea y responsivo sin dependencia de componentes pesados.
 	•	RxJS: para consumir APIs.
