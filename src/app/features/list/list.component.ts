@@ -97,6 +97,6 @@ export class ListComponent implements OnInit {
     this.selectedCountry = null;
     setTimeout(() => {
       this.isModalVisible = false;
-    },10)
+    },300)
   }
 }
