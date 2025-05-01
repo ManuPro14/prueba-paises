@@ -1,6 +1,3 @@
-# Project Title
-
-A brief description of what this project does and who it's for
 
 # 🌍 Prueba Técnica - Lista de Países
 
@@ -38,6 +35,7 @@ ng test
 
 # Ver cobertura
 ng test --code-coverage
+```
 
 🧠 Descripción del proyecto
 
@@ -78,6 +76,8 @@ src/
 
 🔄 Diagrama de flujo de componentes
 
+![Screenshot 2025-05-01 at 8 23 31 AM](https://github.com/user-attachments/assets/92542889-a008-44f8-9048-86c8e4950094)
+
 📚 API usada
 
 Se utilizó REST Countries v3.1, una API pública que entrega información por país.
@@ -85,4 +85,4 @@ Se utilizó REST Countries v3.1, una API pública que entrega información por p
 👨‍💻 Autor
 	•	Manu Barrios
 
-```
+
