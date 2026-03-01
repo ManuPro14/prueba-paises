@@ -22,7 +22,7 @@
     "@angular/router": "^19.0.0",
     "@angular/ssr": "^19.0.5",
     "@tailwindcss/postcss": "^4.1.5",
-    "express": "^4.18.2",
+    "express": "^4.22.1",
     "lucide-angular": "^0.503.0",
     "postcss": "^8.5.3",
     "rxjs": "~7.8.0",
